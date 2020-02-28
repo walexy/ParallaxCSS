@@ -1,0 +1,279 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css");
+
+@function calc-interpolation($min-screen, $min-value, $max-screen, $max-value) {
+  $a: ($max-value - $min-value) / ($max-screen - $min-screen);
+  $b: $min-value - $a * $min-screen;
+  $sign: "+";
+
+  @if ($b < 0) {
+      $sign: "-";
+      $b: abs($b);
+  }
+
+  @return calc(#{$a*100}vw #{$sign} #{$b});
+}
+
+$font-size-base: 1rem;
+$baseline: 1.5rem;
+$minScreen: 10rem;
+$maxScreen: 50rem;
+$minFont: .444rem;
+$maxFont: 1.5rem;
+$darkGray: #43474B;
+$blue: #76B5CC;
+$darkBlue: #242E41;
+$lightBlue: #B8E2DF;
+$darkBrown: #707070;
+$brown: #A68263;
+$lightBrown: #CFA976;
+$tan: #D9BFA0;
+$lightTan: #F7EDE2;
+$red: #BC4953;
+$green: #83BFA4;
+$font-family-serif: Lora, Georgia, "New Century Schoolbook", serif;
+$font-family-sans-serif: "Montserrat", Roboto, "Helvetica Neue", Arial, sans-serif;
+$headings-font-weight: 700;
+
+// Magic parallax mixins
+
+$parallax-perspective : 1 !default;
+$parallax-element     : "body" !default;
+$parallax-ios         : true !default;
+
+@mixin parallax-init(
+$perspective  : $parallax-perspective,
+$element      : $parallax-element,
+$parallax-ios : $parallax-ios
+) {
+@if $element == "body" {
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+#{$element} {
+  overflow: auto;
+  perspective: $perspective * 1px;
+  transform-style: preserve-3d;
+  // Allows for smooth scrolling but disables parallax effects.
+  @if $parallax-ios == false {
+    -webkit-overflow-scrolling: touch;
+  }
+  // Preserve 3D
+  &, * {
+    transform-style: preserve-3d;
+  }
+}
+}
+
+@mixin parallax(
+$distance    : 0,
+$perspective : $parallax-perspective
+) {
+transform:
+  translateZ($distance * $perspective * 1px)
+  scale(abs($distance - 1))
+;
+z-index: $distance * 1000;
+}
+
+// End of magic parallax mixins
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+$primary: #1586D1;
+
+@include parallax-init;
+
+.parallax-container {
+.parallax:nth-child(0) {
+  @include parallax(-0.4);
+ 
+}
+.parallax:nth-child(1) {
+  @include parallax(-0.2);
+ 
+}
+.parallax:nth-child(2) {
+  @include parallax(0.2);
+ 
+}
+}
+/* **************
+ Sections
+***************** */
+
+.jumbotron.thepromise::before {
+  content: '';
+  background-color: rgba(15, 26, 23, 0.7);
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  width: 100%;
+}
+
+.jumbotron.thepromise * {
+  position: relative;
+}
+
+.jumbotron.thepromise {
+  background: transparent;
+  position: relative;
+  color: white;
+
+  &.parallax-container {
+      height: 2100px !important;
+  }
+}
+
+.jumbotron.thepromise h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+}
+
+.jumbotron.thepromise h2 {
+  text-transform: uppercase;
+}
+
+.jumbotron.thepromise h3 {
+  color: $blue;
+  font-weight: normal;
+  font-size: 18px;
+  line-weight: 30px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.thepromise {
+  h2::before,
+  h2::after {
+      width: 25%;
+      height: 18px;
+      border-top: 5px solid #CFA976;
+      background-position: bottom right;
+      background-image: url( '../../../images/bronze-rule.svg' );
+      background-size: 90% 5px;
+      position: absolute;
+      background-repeat: no-repeat;
+      top: .5em;
+      content: "";
+      display: block;
+  }
+
+  h2::after {
+      right: 0;
+      background-position: bottom left;
+  }
+
+  .card .blockquote-footer {
+      color: $lightBlue;
+  }
+}
+
+.jumbotron.thepromise p {
+  font: normal normal 16px/30px $font-family-serif;
+}
+
+.jumbotron.thepromise p.lead {
+  font-size: 30px;
+  line-height: 60px;
+  color: #F7EDE2;
+
+  em::after {
+      content: '';
+      width: 55%;
+      height: 1px;
+      margin: 0 auto;
+      background-color: $blue;
+      display: block;
+  }
+}
+
+.jumbotron.thepromise .card p {
+  font: italic;
+}
+
+.jumbotron.thepromise {
+  margin-bottom: 0;
+}
+
+.thepromise .card {
+  width: auto;
+  background-color: transparent;
+  border: none;
+}
+
+.thepromise .card-img-top {
+  width: calc(100vw/8);
+  height: calc(100vw/8);
+}
+
+.jumbotron.thepromise .partner-row {
+  margin-bottom: 30px;
+}
+
+.jumbotron .section-ornament {
+  width: 3em;
+  margin: 15px auto;
+}
+
+.about {
+  color: #594C45;
+}
+
+.about article {
+  position: relative;
+
+  &::after {
+      content: '';
+      position: absolute;
+      height: 100px;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+  }
+}
+
+.about .article-body {
+  height: 500px;
+  overflow: auto;
+  padding-bottom: 3em;
+}
+
+.about h2 {
+  font: normal 40px/46px $font-family-serif;
+}
+
+.about h3 {
+  font: normal 20px/30px $font-family-sans-serif;
+}
+
+.contact h2 {
+  color: white;
+  letter-spacing: 1px;
+}
+
+.contact .card {
+  background: transparent;
+  color: white;
+  border: none;
+}
+
+footer.page-footer {
+  position: relative;
+  bottom: 0;
+  width: 100vw;
+  height: 190px;
+  background: $darkBlue;
+  color: white;
+  padding: 30px;
+}
+

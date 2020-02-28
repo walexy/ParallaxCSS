@@ -1,2 +1,0 @@
-# ParallaxCSS
-Created with CodeSandbox
