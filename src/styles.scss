@@ -107,7 +107,9 @@ $primary: #1586D1;
 /* **************
  Sections
 ***************** */
-
+.jumbotron {
+  background-color: rgba(15, 26, 23, 0);
+}
 .jumbotron.thepromise::before {
   content: '';
   background-color: rgba(15, 26, 23, 0.7);
